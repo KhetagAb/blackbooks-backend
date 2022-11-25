@@ -28,14 +28,14 @@ java -jar demo-0.0.1-SNAPSHOT.jar
 
 - На примере ниже мы создаем несодержательный Depository и UserProfile и помещаем несколько транзакций на их связку.
 
-  ![](src/main/resources/Screen-1.png)
-  ![](src/main/resources/Screen-2.png)
+  ![](src/main/resources/feature5/Screen-1.png)
+  ![](src/main/resources/feature5/Screen-2.png)
 - Выводим список всех транзакций (их будет на несколько больше)
 
-  ![](src/main/resources/Screen-4.png)
-  ![](src/main/resources/Screen-5.png)
+  ![](src/main/resources/feature5/Screen-4.png)
+  ![](src/main/resources/feature5/Screen-5.png)
 - И наконец используем нашу функцию с разными параметрами
 
-  ![](src/main/resources/Screen-6.png)
-  ![](src/main/resources/Screen-7.png)
+  ![](src/main/resources/feature5/Screen-6.png)
+  ![](src/main/resources/feature5/Screen-7.png)
 - Пока что (в задании не требовалось) реализовать валидацию данных, так что в случае некорректных значений словим 500

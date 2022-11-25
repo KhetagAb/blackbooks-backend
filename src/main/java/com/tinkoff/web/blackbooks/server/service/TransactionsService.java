@@ -31,7 +31,6 @@ public class TransactionsService extends AbstractService<TransactionEntry, Trans
         Comparator<TransactionEntry> comparator = Comparator.comparing(TransactionEntry::getTime,
                 type.equals(SortType.ASC) ? Comparator.naturalOrder() : Comparator.reverseOrder());
 
-        // toDo:: synch on the moment :( emit on dto ready?
         return Flux.fromStream(transactionRepository.getAll().stream()
                         .filter(filter)
                         .sorted(comparator)
