@@ -1,11 +1,11 @@
 package com.tinkoff.web.blackbooks.server.service;
 
+import com.tinkoff.web.blackbooks.server.RepositoryTestMock;
 import com.tinkoff.web.blackbooks.server.controller.util.SortType;
 import com.tinkoff.web.blackbooks.server.domain.dao.dto.TransactionDto;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.DepositoryEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.TransactionEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.UserProfileEntry;
-import com.tinkoff.web.blackbooks.server.domain.dao.respository.RepositoryInitializer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class TransactionsServiceTest {
     TransactionsService transactionsService;
 
     @Autowired
-    RepositoryInitializer initializer;
+    RepositoryTestMock initializer;
 
     @Test
     void itShouldThrowException() {
@@ -92,7 +92,7 @@ public class TransactionsServiceTest {
         // given
         DepositoryEntry depositoryEntry = initializer.getDepositoryEntries().get(0);
         UserProfileEntry userProfileEntry = initializer.getUserProfileEntries().get(0);
-
+        TransactionEntry entry = initializer.getTransactionEntries().get(3);
 
         // when
         Flux<TransactionDto> transactionDto = transactionsService.getTransactions(depositoryEntry.getId(),
@@ -100,6 +100,12 @@ public class TransactionsServiceTest {
 
         // then
         List<TransactionDto> list = transactionDto.toStream().toList();
-        assertTrue(list.isEmpty());
+        assertEquals(list.size(), 4);
+
+        TransactionDto dto = list.get(0);
+        assertEquals(dto.nick(), entry.getUser().getNick());
+        assertEquals(dto.shelf(), entry.getDepository().getAddress());
+        assertEquals(dto.time(), entry.getTime().getTime());
+        assertEquals(dto.action(), entry.getAction());
     }
 }

@@ -1,8 +1,11 @@
-package com.tinkoff.web.blackbooks.server.domain.dao.respository;
+package com.tinkoff.web.blackbooks.server;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.DepositoryEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.TransactionEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.UserProfileEntry;
+import com.tinkoff.web.blackbooks.server.domain.dao.respository.DepositoryRepository;
+import com.tinkoff.web.blackbooks.server.domain.dao.respository.TransactionRepository;
+import com.tinkoff.web.blackbooks.server.domain.dao.respository.UserProfileRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,16 +15,18 @@ import java.util.List;
 
 @Component
 @Getter
-public class RepositoryInitializer {
+public class RepositoryTestMock {
 
     private final List<UserProfileEntry> userProfileEntries;
+
     private final List<DepositoryEntry> depositoryEntries;
 
     private final List<TransactionEntry> transactionEntries;
 
-    private RepositoryInitializer(@Autowired UserProfileRepository userProfileRepository,
-                                  @Autowired DepositoryRepository depositoryRepository,
-                                  @Autowired TransactionRepository transactionRepository) {
+    // toDo: refactor with true MOCKITO
+    private RepositoryTestMock(@Autowired UserProfileRepository userProfileRepository,
+                               @Autowired DepositoryRepository depositoryRepository,
+                               @Autowired TransactionRepository transactionRepository) {
         UserProfileEntry khetag = userProfileRepository.save(new UserProfileEntry("KhetagDz", "Khetag", 20, "male", "St. Petersburg"));
         UserProfileEntry ivan = userProfileRepository.save(new UserProfileEntry("IvanM3239", "Ivan", 19, "male", "Moscow"));
         UserProfileEntry defuser = userProfileRepository.save(new UserProfileEntry("string", "string", 0, "string", "string"));

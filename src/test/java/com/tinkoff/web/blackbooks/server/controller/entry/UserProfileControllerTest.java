@@ -24,7 +24,7 @@ class UserProfileControllerTest extends BaseEntryControllerTest<UserProfileEntry
 
     @Override
     protected List<UserProfileEntry> getStorage() {
-        return initialStorage.getUserProfileEntries();
+        return repositoryTestMock.getUserProfileEntries();
     }
 
     @Override

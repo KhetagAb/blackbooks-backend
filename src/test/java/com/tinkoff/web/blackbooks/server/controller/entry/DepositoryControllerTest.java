@@ -34,6 +34,6 @@ class DepositoryControllerTest extends BaseEntryControllerTest<DepositoryEntry> 
 
     @Override
     protected List<DepositoryEntry> getStorage() {
-        return initialStorage.getDepositoryEntries();
+        return repositoryTestMock.getDepositoryEntries();
     }
 }

@@ -16,13 +16,13 @@ public class TransactionsControllerTest extends BaseEntryControllerTest<Transact
 
     @Override
     protected List<TransactionEntry> getStorage() {
-        return initialStorage.getTransactionEntries();
+        return repositoryTestMock.getTransactionEntries();
     }
 
     @Override
     protected String generateCorrectEntryJson() {
-        UserProfileEntry profileEntry = initialStorage.getUserProfileEntries().get(0);
-        DepositoryEntry depositoryEntry = initialStorage.getDepositoryEntries().get(0);
+        UserProfileEntry profileEntry = repositoryTestMock.getUserProfileEntries().get(0);
+        DepositoryEntry depositoryEntry = repositoryTestMock.getDepositoryEntries().get(0);
         return String.format("{\"nick\": \"%s\",\"shelf\": \"%s\"," +
                         "\"time\": \"0\",\"action\": \"%s\"}",
                 profileEntry.getNick(), depositoryEntry.getAddress(), UUID.randomUUID());
