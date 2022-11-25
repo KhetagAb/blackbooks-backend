@@ -1,4 +1,4 @@
-package com.tinkoff.web.blackbooks.server.controller;
+package com.tinkoff.web.blackbooks.server.controller.entry;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.UserProfileEntry;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -6,7 +6,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 import java.util.UUID;
 
-class UserProfileControllerTest extends BaseControllerTest<UserProfileEntry> {
+class UserProfileControllerTest extends BaseEntryControllerTest<UserProfileEntry> {
 
     @Override
     protected String generateCorrectEntryJson() {
@@ -23,7 +23,7 @@ class UserProfileControllerTest extends BaseControllerTest<UserProfileEntry> {
     }
 
     @Override
-    protected List<UserProfileEntry> getStorageEntities() {
+    protected List<UserProfileEntry> getStorage() {
         return initialStorage.getUserProfileEntries();
     }
 

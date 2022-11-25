@@ -1,4 +1,4 @@
-package com.tinkoff.web.blackbooks.server.controller;
+package com.tinkoff.web.blackbooks.server.controller.entry;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.DepositoryEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.TransactionEntry;
@@ -8,14 +8,14 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 import java.util.UUID;
 
-public class TransactionsControllerTest extends BaseControllerTest<TransactionEntry> {
+public class TransactionsControllerTest extends BaseEntryControllerTest<TransactionEntry> {
     @Override
     protected String getControllerPathPrefix() {
         return "/transactions";
     }
 
     @Override
-    protected List<TransactionEntry> getStorageEntities() {
+    protected List<TransactionEntry> getStorage() {
         return initialStorage.getTransactionEntries();
     }
 

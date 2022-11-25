@@ -2,7 +2,7 @@ package com.tinkoff.web.blackbooks.server.controller;
 
 import org.junit.jupiter.api.Test;
 
-public class SystemControllerTest extends BaseTest {
+public class SystemControllerTest extends BaseControllerTest {
 
     @Test
     void livenessProbeShouldBeAlive() {
