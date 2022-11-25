@@ -1,23 +1,18 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
+import com.tinkoff.web.blackbooks.server.domain.dao.entry.Entry;
 import com.tinkoff.web.blackbooks.server.domain.dao.respository.RepositoryInitializer;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.util.List;
 import java.util.UUID;
 
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {
-                "management.server.port=8080"
-        }
-)
-public class BaseControllerTest {
+public abstract class BaseControllerTest<E extends Entry> extends BaseTest {
 
     protected static Matcher<Object> UUID_MATCHER = new BaseMatcher<>() {
         @Override
@@ -35,52 +30,87 @@ public class BaseControllerTest {
             }
         }
     };
-    @Autowired
-    protected WebTestClient testClient;
+
     @Autowired
     RepositoryInitializer initialStorage;
 
-    protected static void expectUpStatus(WebTestClient.ResponseSpec exchange) {
-        expectJson(exchange)
-                .expectBody().json("{\"status\": \"UP\"}");
+    protected abstract String getControllerPathPrefix();
+
+    protected abstract List<E> getStorageEntities();
+
+    protected abstract String generateCorrectEntryJson();
+
+    protected abstract void jsonEqual(WebTestClient.BodyContentSpec bodyContentSpec,
+                                      String jsonPathPrefix,
+                                      E entry);
+
+    @Test
+    void itShouldCreateEntry() {
+        // given
+        String entry = generateCorrectEntryJson();
+
+        // when
+        var response = postJson(getControllerPathPrefix() + "/create", entry).exchange();
+
+        // then
+        expectJson(response)
+                .expectStatus().isCreated()
+                .expectBody()
+                .jsonPath("$")
+                .value(UUID_MATCHER);
     }
 
-    protected static WebTestClient.ResponseSpec expectJson(WebTestClient.ResponseSpec exchange) {
-        return exchange.expectStatus().is2xxSuccessful()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON);
+    @Test
+    void itShouldGetEntry() {
+        // given
+        E entry = getStorageEntities().get(0);
+
+        // when
+        var response = getJson(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
+
+        // then
+        jsonEqual(expectJson(response).expectBody(), "$", entry);
     }
 
-    protected WebTestClient.RequestHeadersSpec<?> getJson(String uri, Object... uriVariables) {
-        return testClient.get()
-                .uri(uri, uriVariables)
-                .accept(MediaType.APPLICATION_JSON);
+    @Test
+    void itShouldGetAllEntries() {
+        // given
+        List<E> entities = getStorageEntities();
+
+        // when
+        var response = getJson(getControllerPathPrefix() + "/all").exchange();
+
+        // then
+        var expectBody = expectJson(response).expectBody();
+        for (int i = 0; i < entities.size(); i++) {
+            jsonEqual(expectBody, "$.[" + i + "]", entities.get(i));
+        }
     }
 
-    protected WebTestClient.RequestHeadersSpec<?> getJson(String uri) {
-        return testClient.get()
-                .uri(uri)
-                .accept(MediaType.APPLICATION_JSON);
+    @Test
+    void itShouldUpdateEntry() {
+        // given
+        E entry = getStorageEntities().get(0);
+        String newUserProfile = generateCorrectEntryJson();
+
+        // when
+        var response = putJson(newUserProfile,
+                getControllerPathPrefix() + "/{id}",
+                entry.getId()).exchange();
+
+        // then
+        response.expectStatus().isOk();
     }
 
-    protected WebTestClient.RequestHeadersSpec<?> postJson(String uri, String json) {
-        return testClient.post()
-                .uri(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(json)
-                .accept(MediaType.APPLICATION_JSON);
-    }
+    @Test
+    void itShouldDeleteEntry() {
+        // given
+        E entry = getStorageEntities().get(0);
 
-    protected WebTestClient.RequestHeadersSpec<?> putJson(String json, String uri, Object... uriVariables) {
-        return testClient.put()
-                .uri(uri, uriVariables)
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(json)
-                .accept(MediaType.APPLICATION_JSON);
-    }
+        // when
+        var response = deleteJson(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
 
-    protected WebTestClient.RequestHeadersSpec<?> deleteJson(String uri, Object... uriVariables) {
-        return testClient.delete()
-                .uri(uri, uriVariables)
-                .accept(MediaType.APPLICATION_JSON);
+        // then
+        response.expectStatus().isOk();
     }
 }

@@ -32,7 +32,7 @@ public class RepositoryInitializer {
                 "St. Petersburg",
                 "enter in the front of the building",
                 "bookshelf",
-                "St. Petersubrg"));
+                "St. Petersburg"));
 
         DepositoryEntry mipt = depositoryRepository.save(new DepositoryEntry("MIPT library",
                 "Moscow",
