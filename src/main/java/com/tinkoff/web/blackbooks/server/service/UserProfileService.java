@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserProfileService extends AbstractService<UserProfileEntry, UserProfileDto> {
+public class UserProfileService extends AbstractCRUDService<UserProfileEntry, UserProfileDto> {
 
     private final UserProfileRepository userProfileRepository;
 

@@ -1,14 +1,14 @@
 package com.tinkoff.web.blackbooks.server.domain.dao.respository.impl;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.Entry;
-import com.tinkoff.web.blackbooks.server.domain.dao.respository.AbstractRepository;
+import com.tinkoff.web.blackbooks.server.domain.dao.respository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class DefaultRepositoryImpl<E extends Entry> implements AbstractRepository<E> {
+public abstract class DefaultRepositoryImpl<E extends Entry> implements Repository<E> {
 
     private final List<E> storage = new ArrayList<>();
 

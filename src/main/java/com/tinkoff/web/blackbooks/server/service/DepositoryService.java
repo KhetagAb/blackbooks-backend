@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DepositoryService extends AbstractService<DepositoryEntry, DepositoryDto> {
+public class DepositoryService extends AbstractCRUDService<DepositoryEntry, DepositoryDto> {
 
     private final DepositoryRepository depositoryRepository;
 

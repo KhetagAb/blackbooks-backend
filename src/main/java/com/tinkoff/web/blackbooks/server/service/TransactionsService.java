@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 @Service
-public class TransactionsService extends AbstractService<TransactionEntry, TransactionDto> {
+public class TransactionsService extends AbstractCRUDService<TransactionEntry, TransactionDto> {
 
     private final TransactionRepository transactionRepository;
     private final TransactionDtoMapper transactionDtoMapper;

@@ -3,7 +3,7 @@ package com.tinkoff.web.blackbooks.server.service;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.dto.mapper.DtoMapper;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.Entry;
-import com.tinkoff.web.blackbooks.server.domain.dao.respository.AbstractRepository;
+import com.tinkoff.web.blackbooks.server.domain.dao.respository.Repository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,9 +11,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public abstract class AbstractService<E extends Entry, D> {
+public abstract class AbstractCRUDService<E extends Entry, D> {
 
-    private final AbstractRepository<E> repository;
+    private final Repository<E> repository;
     private final DtoMapper<E, D> mapper;
 
     public UUID create(D dto) {
