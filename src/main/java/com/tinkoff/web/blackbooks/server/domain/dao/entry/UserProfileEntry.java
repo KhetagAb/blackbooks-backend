@@ -3,8 +3,6 @@ package com.tinkoff.web.blackbooks.server.domain.dao.entry;
 
 import lombok.Getter;
 
-// What the purpose of these classes -
-// we will have the same domain entry classes across all projects in a team, will we?
 @Getter
 public class UserProfileEntry extends BaseEntry {
 
