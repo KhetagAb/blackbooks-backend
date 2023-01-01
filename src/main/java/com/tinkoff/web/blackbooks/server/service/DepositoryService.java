@@ -21,6 +21,8 @@ public class DepositoryService extends AbstractService<DepositoryEntry, Deposito
     }
 
     public Optional<DepositoryEntry> findByAddress(String shelf) {
-        return depositoryRepository.getAll().stream().filter(e -> e.getAddress().equals(shelf)).findAny();
+        return depositoryRepository.getAll().stream()
+                .filter(e -> e.getAddress().equals(shelf))
+                .findAny();
     }
 }

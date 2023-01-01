@@ -46,6 +46,8 @@ public class UserProfileService extends AbstractService<UserProfileEntry, UserPr
     }
 
     public Optional<UserProfileEntry> findByNick(String nick) {
-        return userProfileRepository.getAll().stream().filter(e -> e.getNick().equals(nick)).findAny();
+        return userProfileRepository.getAll().stream()
+                .filter(e -> e.getNick().equals(nick))
+                .findAny();
     }
 }
