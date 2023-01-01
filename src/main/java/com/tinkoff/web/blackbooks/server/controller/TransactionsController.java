@@ -54,7 +54,7 @@ public class TransactionsController {
             @RequestParam(required = false) UUID bookDepositId,
             @RequestParam(required = false) UUID bookHunterId,
             @RequestParam(required = false, defaultValue = "10") Long amount,
-            @RequestParam(required = false, name = "sortBy", defaultValue = "desc") SortType type
+            @RequestParam(required = false, name = "sortBy", defaultValue = "DESC") SortType type
     ) {
         return transactionsService.getTransactions(bookDepositId, bookHunterId, amount, type);
     }
