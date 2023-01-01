@@ -23,7 +23,7 @@ public class TransactionsController {
         this.transactionsService = transactionsService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createTransaction(@RequestBody TransactionDto transactionDto) {
         return transactionsService.create(transactionDto);

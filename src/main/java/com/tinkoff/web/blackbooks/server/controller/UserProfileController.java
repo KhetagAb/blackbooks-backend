@@ -20,7 +20,7 @@ public class UserProfileController {
     // toDo no validation at the moment
     private final UserProfileService userProfileService;
 
-    @PostMapping("/create")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createUser(@RequestBody UserProfileDto userProfileDto) {
         return userProfileService.create(userProfileDto);

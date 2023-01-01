@@ -20,7 +20,7 @@ public class DepositoryController {
     // toDo no validation at the moment
     private final DepositoryService depositoryService;
 
-    @PostMapping("/create")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createDepository(@RequestBody DepositoryDto depositoryDto) {
         return depositoryService.create(depositoryDto);
