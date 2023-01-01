@@ -1,4 +1,4 @@
-package com.tinkoff.web.blackbooks.server;
+package com.tinkoff.web.blackbooks.server.mock;
 
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.DepositoryEntry;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.TransactionEntry;

@@ -2,12 +2,12 @@ package com.tinkoff.web.blackbooks.server.controller;
 
 import org.junit.jupiter.api.Test;
 
-public class SystemControllerTest extends BaseControllerTest {
+public class SystemControllerTest extends JsonContentControllerTest {
 
     @Test
     void livenessProbeShouldBeAlive() {
         // when
-        var exchange = getJson("/system/liveness").exchange();
+        var exchange = get("/system/liveness").exchange();
 
         // then
         expectUpStatus(exchange);
@@ -16,7 +16,7 @@ public class SystemControllerTest extends BaseControllerTest {
     @Test
     void readinessProbeShouldBeAlive() {
         // when
-        var exchange = getJson("/system/readiness").exchange();
+        var exchange = get("/system/readiness").exchange();
 
         // then
         expectUpStatus(exchange);
@@ -25,10 +25,10 @@ public class SystemControllerTest extends BaseControllerTest {
     @Test
     void versionProbeShouldBeAlive() {
         // when
-        var exchange = getJson("/system/version").exchange();
+        var exchange = get("/system/version").exchange();
 
         // then
-        expectJson(exchange)
+        expect(exchange)
                 .expectBody()
                 .jsonPath("$.build").hasJsonPath()
                 .jsonPath("$.build.artifact").isEqualTo("blackbooks")

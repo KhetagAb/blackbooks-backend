@@ -1,8 +1,8 @@
 package com.tinkoff.web.blackbooks.server.discovery;
 
-import java.net.URL;
+import java.net.URI;
 
 public interface ServiceDiscovery {
 
-    String discoverService(URL url);
+    String discoverService(URI uri);
 }

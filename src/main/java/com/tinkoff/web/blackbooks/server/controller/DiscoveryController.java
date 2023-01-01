@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import java.net.MalformedURLException;
+
 @RestController
 @RequestMapping(value = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "discovery")
@@ -19,7 +21,11 @@ public class DiscoveryController {
 
     @GetMapping(value = "/discovery")
     public Flux<String> discover() {
-        return discoveryService.discoverAll();
+        try {
+            return discoveryService.discoverAll();
+        } catch (MalformedURLException e) {
+            return Flux.error(e);
+        }
     }
 
 }
