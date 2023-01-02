@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -20,11 +22,12 @@ public class DiscoveryController {
     private final DiscoveryService discoveryService;
 
     @GetMapping(value = "/discovery")
-    public Flux<String> discover() {
+    public Mono<String> discover() {
         try {
-            return discoveryService.discoverAll();
+            Flux<String> discovered = discoveryService.discoverAll();
+            return discovered.collect(Collectors.joining(",", "{", "}"));
         } catch (MalformedURLException e) {
-            return Flux.error(e);
+            return Mono.error(e);
         }
     }
 

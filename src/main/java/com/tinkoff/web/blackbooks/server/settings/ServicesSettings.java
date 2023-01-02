@@ -15,6 +15,9 @@ import java.util.Map;
 @Getter
 public class ServicesSettings {
 
+    private final String liveliness;
+    private final String version;
+
     private final Map<String, Service> services;
 
     public Service getBookHunterService() {
@@ -26,26 +29,13 @@ public class ServicesSettings {
     }
 
     @ConstructorBinding
-    @RequiredArgsConstructor
     @Getter
     public static class Service {
 
-        private final String host;
-        private final int port;
+        private final URL url;
 
-        private final String liveliness;
-        private final String version;
-
-        public URL getVersionUrl() throws MalformedURLException {
-            return getUrl(host, port, version);
-        }
-
-        public URL getLivelinessPath() throws MalformedURLException {
-            return getUrl(host, port, liveliness);
-        }
-
-        private static URL getUrl(String host, int port, String path) throws MalformedURLException {
-            return new URL("http", host, port, path);
+        public Service(String host, int port) throws MalformedURLException {
+            this.url = new URL("http://" +  host + ":" + port);
         }
     }
 }
