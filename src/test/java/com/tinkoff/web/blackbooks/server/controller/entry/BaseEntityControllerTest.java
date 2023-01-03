@@ -1,8 +1,8 @@
 package com.tinkoff.web.blackbooks.server.controller.entry;
 
-import com.tinkoff.web.blackbooks.server.mock.RepositoryTestMock;
 import com.tinkoff.web.blackbooks.server.controller.JsonContentControllerTest;
-import com.tinkoff.web.blackbooks.server.domain.dao.entry.Entry;
+import com.tinkoff.web.blackbooks.server.dao.entity.Entity;
+import com.tinkoff.web.blackbooks.server.mock.RepositoryTestMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.tinkoff.web.blackbooks.server.TestUtils.UUID_MATCHER;
 
-public abstract class BaseEntryControllerTest<E extends Entry> extends JsonContentControllerTest {
+public abstract class BaseEntityControllerTest<E extends Entity> extends JsonContentControllerTest {
 
     @Autowired
     protected RepositoryTestMock repositoryTestMock;

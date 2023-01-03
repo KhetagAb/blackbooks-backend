@@ -1,10 +1,9 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
 import com.tinkoff.web.blackbooks.server.controller.util.SortType;
-import com.tinkoff.web.blackbooks.server.domain.dao.dto.TransactionDto;
+import com.tinkoff.web.blackbooks.server.domain.dto.TransactionDto;
 import com.tinkoff.web.blackbooks.server.service.TransactionsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +13,16 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/transactions", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "transaction", description = "endpoint for operations with transactions")
 public class TransactionsController {
 
     // toDo no validation at the moment
     private final TransactionsService transactionsService;
+
+    public TransactionsController(TransactionsService transactionsService) {
+        this.transactionsService = transactionsService;
+    }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)

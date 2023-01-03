@@ -1,9 +1,8 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
-import com.tinkoff.web.blackbooks.server.domain.dao.dto.DepositoryDto;
+import com.tinkoff.web.blackbooks.server.domain.dto.DepositoryDto;
 import com.tinkoff.web.blackbooks.server.service.DepositoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/depository", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "depository")
-@RequiredArgsConstructor
 public class DepositoryController {
 
     // toDo no validation at the moment
     private final DepositoryService depositoryService;
+
+    public DepositoryController(DepositoryService depositoryService) {
+        this.depositoryService = depositoryService;
+    }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)

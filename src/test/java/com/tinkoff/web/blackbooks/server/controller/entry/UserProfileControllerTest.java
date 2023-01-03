@@ -1,12 +1,12 @@
 package com.tinkoff.web.blackbooks.server.controller.entry;
 
-import com.tinkoff.web.blackbooks.server.domain.dao.entry.UserProfileEntry;
+import com.tinkoff.web.blackbooks.server.dao.entity.UserProfileEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.List;
 import java.util.UUID;
 
-class UserProfileControllerTest extends BaseEntryControllerTest<UserProfileEntry> {
+class UserProfileControllerTest extends BaseEntityControllerTest<UserProfileEntity> {
 
     @Override
     protected String generateCorrectEntryJson() {
@@ -23,17 +23,17 @@ class UserProfileControllerTest extends BaseEntryControllerTest<UserProfileEntry
     }
 
     @Override
-    protected List<UserProfileEntry> getStorage() {
+    protected List<UserProfileEntity> getStorage() {
         return repositoryTestMock.getUserProfileEntries();
     }
 
     @Override
-    protected void jsonEqual(WebTestClient.BodyContentSpec bodyContentSpec, String jsonPathPrefix, UserProfileEntry entry) {
+    protected void jsonEqual(WebTestClient.BodyContentSpec bodyContentSpec, String jsonPathPrefix, UserProfileEntity entry) {
         bodyContentSpec
                 .jsonPath(jsonPathPrefix + ".nick").isEqualTo(entry.getNick())
                 .jsonPath(jsonPathPrefix + ".name").isEqualTo(entry.getName())
                 .jsonPath(jsonPathPrefix + ".age").isEqualTo(entry.getAge())
                 .jsonPath(jsonPathPrefix + ".gender").isEqualTo(entry.getGender())
-                .jsonPath(jsonPathPrefix + ".location").isEqualTo(entry.getLocation());
+                .jsonPath(jsonPathPrefix + ".location").isEqualTo(entry.getLatitude() + " " + entry.getLongitude());
     }
 }
