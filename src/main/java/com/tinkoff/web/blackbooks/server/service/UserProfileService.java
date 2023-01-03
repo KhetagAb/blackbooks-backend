@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserProfileService extends AbstractService<UserProfileEntity, UserProfileDto> {
@@ -22,7 +21,7 @@ public class UserProfileService extends AbstractService<UserProfileEntity, UserP
     }
 
     public Optional<UserProfileEntity> findByNick(String nick) {
-        return StreamSupport.stream(userProfileRepository.findAll().spliterator(), false)
+        return userProfileRepository.findAll().stream()
                 .filter(e -> e.getNick().equals(nick))
                 .findAny(); // toDO optimize by jpa operation
     }

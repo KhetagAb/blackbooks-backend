@@ -2,13 +2,20 @@ package com.tinkoff.web.blackbooks.server.domain.dto.mapper;
 
 import com.tinkoff.web.blackbooks.server.dao.entity.UserProfileEntity;
 import com.tinkoff.web.blackbooks.server.domain.dto.UserProfileDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
-public interface UserProfileMapper extends DtoMapper<UserProfileEntity, UserProfileDto> {
+public class UserProfileMapper implements DtoMapper<UserProfileEntity, UserProfileDto> {
 
-    UserProfileMapper INSTANCE = Mappers.getMapper(UserProfileMapper.class);
+    public static UserProfileMapper INSTANCE = new UserProfileMapper();
+
+    @Override
+    public UserProfileDto toDto(UserProfileEntity entry) {
+        return null;
+    }
+
+    @Override
+    public UserProfileEntity toEntry(UserProfileDto dto) {
+        return null;
+    }
 
 
 //    public UserProfileDto toDto(UserProfileEntity userProfileEntry) {

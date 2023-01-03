@@ -9,13 +9,13 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "User", schema = "public", catalog = "postgres")
+@Table(name = "user-profile", schema = "public", catalog = "postgres")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfileEntity implements com.tinkoff.web.blackbooks.server.dao.entity.Entity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;

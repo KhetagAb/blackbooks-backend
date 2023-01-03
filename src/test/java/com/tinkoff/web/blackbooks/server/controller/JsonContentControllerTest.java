@@ -3,6 +3,7 @@ package com.tinkoff.web.blackbooks.server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(
@@ -11,6 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
                 "management.server.port=8070"
         }
 )
+@ActiveProfiles("test")
 public class JsonContentControllerTest {
 
     @Autowired

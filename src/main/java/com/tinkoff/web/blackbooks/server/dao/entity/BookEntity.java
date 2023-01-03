@@ -7,26 +7,26 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Book", schema = "public", catalog = "postgres")
+@Table(name = "book", schema = "public", catalog = "postgres")
 @Data
 public class BookEntity implements com.tinkoff.web.blackbooks.server.dao.entity.Entity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;
     @Basic
     @Column(name = "bookMetaId")
-    private Object bookMetaId;
+    private UUID bookMetaId;
     @Basic
     @Column(name = "userId")
-    private Object userId;
+    private UUID userId;
     @Basic
     @Column(name = "depositoryId")
-    private Object depositoryId;
+    private UUID depositoryId;
     @Basic
     @Column(name = "transactionId")
-    private Object transactionId;
+    private UUID transactionId;
 
     public UUID getId() {
         return id;

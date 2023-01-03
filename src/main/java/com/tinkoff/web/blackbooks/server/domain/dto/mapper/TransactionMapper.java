@@ -2,13 +2,20 @@ package com.tinkoff.web.blackbooks.server.domain.dto.mapper;
 
 import com.tinkoff.web.blackbooks.server.dao.entity.TransactionEntity;
 import com.tinkoff.web.blackbooks.server.domain.dto.TransactionDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
-public interface TransactionMapper extends DtoMapper<TransactionEntity, TransactionDto> {
+public class TransactionMapper implements DtoMapper<TransactionEntity, TransactionDto> {
 
-    TransactionMapper INSTANCE = Mappers.getMapper(TransactionMapper.class);
+    public static TransactionMapper INSTANCE = new TransactionMapper();
+
+    @Override
+    public TransactionDto toDto(TransactionEntity entry) {
+        return null;
+    }
+
+    @Override
+    public TransactionEntity toEntry(TransactionDto dto) {
+        return null;
+    }
 
 //    TransactionDto toDto(TransactionEntity car);
 //

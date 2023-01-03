@@ -1,4 +1,4 @@
-CREATE TABLE "User"
+CREATE TABLE "user-profile"
 (
     "id"        UUID             NOT NULL,
     "nick"      TEXT             NOT NULL,
@@ -10,10 +10,10 @@ CREATE TABLE "User"
     "longitude" DOUBLE PRECISION NOT NULL
 );
 ALTER TABLE
-    "User"
+    "user-profile"
     ADD PRIMARY KEY ("id");
 
-CREATE TABLE "Depository"
+CREATE TABLE "depository"
 (
     "id"          UUID             NOT NULL,
     "name"        TEXT             NOT NULL,
@@ -24,10 +24,10 @@ CREATE TABLE "Depository"
     "longitude"   DOUBLE PRECISION NOT NULL
 );
 ALTER TABLE
-    "Depository"
+    "depository"
     ADD PRIMARY KEY ("id");
 
-CREATE TABLE "Transaction"
+CREATE TABLE "transaction"
 (
     "id"           UUID                           NOT NULL,
     "userId"       UUID                           NOT NULL,
@@ -41,10 +41,10 @@ CREATE TABLE "Transaction"
             ("status" IN (''))                    NOT NULL
 );
 ALTER TABLE
-    "Transaction"
+    "transaction"
     ADD PRIMARY KEY ("id");
 
-CREATE TABLE "Book"
+CREATE TABLE "book"
 (
     "id"            UUID NOT NULL,
     "bookMetaId"    UUID NOT NULL,
@@ -53,10 +53,10 @@ CREATE TABLE "Book"
     "transactionId" UUID NOT NULL
 );
 ALTER TABLE
-    "Book"
+    "book"
     ADD PRIMARY KEY ("id");
 
-CREATE TABLE "BookMeta"
+CREATE TABLE "book-meta"
 (
     "id"          UUID NOT NULL,
     "shortName"   TEXT NOT NULL,
@@ -64,21 +64,21 @@ CREATE TABLE "BookMeta"
     "author"      TEXT NOT NULL
 );
 ALTER TABLE
-    "BookMeta"
+    "book-meta"
     ADD PRIMARY KEY ("id");
 
 ALTER TABLE
-    "Transaction"
-    ADD CONSTRAINT "transaction_userid_foreign" FOREIGN KEY ("userId") REFERENCES "User" ("id");
+    "transaction"
+    ADD CONSTRAINT "transaction_userid_foreign" FOREIGN KEY ("userId") REFERENCES "user-profile" ("id");
 ALTER TABLE
-    "Transaction"
-    ADD CONSTRAINT "transaction_depositoryid_foreign" FOREIGN KEY ("depositoryId") REFERENCES "Depository" ("id");
+    "transaction"
+    ADD CONSTRAINT "transaction_depositoryid_foreign" FOREIGN KEY ("depositoryId") REFERENCES "depository" ("id");
 ALTER TABLE
-    "Book"
-    ADD CONSTRAINT "book_userid_foreign" FOREIGN KEY ("userId") REFERENCES "User" ("id");
+    "book"
+    ADD CONSTRAINT "book_userid_foreign" FOREIGN KEY ("userId") REFERENCES "user-profile" ("id");
 ALTER TABLE
-    "Book"
-    ADD CONSTRAINT "book_depositoryid_foreign" FOREIGN KEY ("depositoryId") REFERENCES "Depository" ("id");
+    "book"
+    ADD CONSTRAINT "book_depositoryid_foreign" FOREIGN KEY ("depositoryId") REFERENCES "depository" ("id");
 ALTER TABLE
-    "Book"
-    ADD CONSTRAINT "book_bookmetaid_foreign" FOREIGN KEY ("bookMetaId") REFERENCES "BookMeta" ("id");
+    "book"
+    ADD CONSTRAINT "book_bookmetaid_foreign" FOREIGN KEY ("bookMetaId") REFERENCES "book-meta" ("id");

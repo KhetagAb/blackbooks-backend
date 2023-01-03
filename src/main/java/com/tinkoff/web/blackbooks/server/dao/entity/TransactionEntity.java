@@ -10,25 +10,25 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Transaction", schema = "public", catalog = "postgres")
+@Table(name = "transaction", schema = "public", catalog = "postgres")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionEntity implements com.tinkoff.web.blackbooks.server.dao.entity.Entity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;
     @Basic
     @Column(name = "userId")
-    private Object userId;
+    private UUID userId;
     @Basic
     @Column(name = "depositoryId")
-    private Object depositoryId;
+    private UUID depositoryId;
     @Basic
     @Column(name = "bookId")
-    private Object bookId;
+    private UUID bookId;
     @Basic
     @Column(name = "timestamp")
     private Timestamp timestamp;
