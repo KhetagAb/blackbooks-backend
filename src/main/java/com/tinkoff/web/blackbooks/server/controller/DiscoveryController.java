@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,12 +22,8 @@ public class DiscoveryController {
 
     @GetMapping(value = "/discovery")
     public Mono<String> discover() {
-        try {
-            Flux<String> discovered = discoveryService.discoverAll();
-            return discovered.collect(Collectors.joining(",", "{", "}"));
-        } catch (MalformedURLException e) {
-            return Mono.error(e);
-        }
+        Flux<String> discovered = discoveryService.discoverAll();
+        return discovered.collect(Collectors.joining(",", "{", "}"));
     }
 
 }
