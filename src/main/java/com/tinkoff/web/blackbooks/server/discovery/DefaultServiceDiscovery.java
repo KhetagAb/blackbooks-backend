@@ -20,19 +20,15 @@ public class DefaultServiceDiscovery implements ServiceDiscovery {
         WebClient client = WebClient.create(url.toString());
 
         try {
-            Mono<String> status = client.get()
-                    .uri(settings.getLiveliness())
-                    .retrieve()
-                    .bodyToMono(String.class);
-
             Mono<String> version = client.get()
                     .uri(settings.getVersion())
                     .retrieve()
                     .bodyToMono(String.class);
-
-            return status
-                    .filter(msg -> !msg.contains("UP"))
-                    .switchIfEmpty(version)
+            return client.get()
+                    .uri(settings.getLiveliness())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .zipWith(version, (v, s) -> v.contains("UP") ? s : ERROR_MSG)
                     .onErrorReturn(ERROR_MSG);
         } catch (Exception e) {
             return Mono.just(ERROR_MSG);
