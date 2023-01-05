@@ -1,6 +1,7 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/system")
+@RequestMapping(value = "/system", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "system", description = "system endpoint of the blackbooks application")
 public class SystemController {
 
@@ -18,17 +19,17 @@ public class SystemController {
         this.client = client;
     }
 
-    @GetMapping("liveness")
+    @GetMapping(value = "liveness")
     public Mono<String> getLiveness() {
         return getStringResponseMonoByUri("/actuator/health/liveness");
     }
 
-    @GetMapping("readiness")
+    @GetMapping(value = "readiness")
     public Mono<String> getReadiness() {
         return getStringResponseMonoByUri("/actuator/health/readiness");
     }
 
-    @GetMapping("version")
+    @GetMapping(value = "version")
     public Mono<String> getVersion() {
         return getStringResponseMonoByUri("/actuator/info");
     }

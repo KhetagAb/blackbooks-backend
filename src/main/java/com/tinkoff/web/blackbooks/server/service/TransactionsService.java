@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 @Service
-public class TransactionsService extends AbstractService<TransactionEntry, TransactionDto> {
+public class TransactionsService extends AbstractCRUDService<TransactionEntry, TransactionDto> {
 
     private final TransactionRepository transactionRepository;
     private final TransactionDtoMapper transactionDtoMapper;
@@ -26,12 +26,11 @@ public class TransactionsService extends AbstractService<TransactionEntry, Trans
         this.transactionDtoMapper = mapper;
     }
 
-    public Flux<TransactionDto> getTransactions(UUID bookDepositId, UUID bookHunterId, Long amount, SortType type) {
+    public Flux<TransactionDto> getTransactions(UUID bookDepositId, UUID bookHunterId, long amount, SortType type) {
         Predicate<TransactionEntry> filter = t -> t.getUser().getId().equals(bookHunterId) && t.getDepository().getId().equals(bookDepositId);
         Comparator<TransactionEntry> comparator = Comparator.comparing(TransactionEntry::getTime,
                 type.equals(SortType.ASC) ? Comparator.naturalOrder() : Comparator.reverseOrder());
 
-        // toDo:: synch on the moment :( emit on dto ready?
         return Flux.fromStream(transactionRepository.getAll().stream()
                         .filter(filter)
                         .sorted(comparator)

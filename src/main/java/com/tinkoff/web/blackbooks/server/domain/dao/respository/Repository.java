@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface AbstractRepository<E extends Entry> {
+public interface Repository<E extends Entry> {
 
     E save(E entry);
 
