@@ -24,7 +24,8 @@ public class TransactionEntity implements com.tinkoff.web.blackbooks.server.dao.
     @Id
     @Column(name = "id")
     private UUID id;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "book_id")
     private BookEntity book;
 

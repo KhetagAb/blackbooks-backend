@@ -11,14 +11,19 @@ import java.util.Set;
 import java.util.UUID;
 
 @Component
-@Getter
 public class RepositoryTestMock { // toDo temp class
 
-    private final List<UserProfileEntity> userProfileEntries;
-
-    private final List<DepositoryEntity> depositoryEntries;
-
-    private final List<TransactionEntity> transactionEntries;
+    private final UserProfileRepository userProfileRepository;
+    private final DepositoryRepository depositoryRepository;
+    private final TransactionRepository transactionRepository;
+    private final BookMetaRepository bookMetaRepository;
+    private final BookRepository bookRepository;
+    @Getter
+    private List<UserProfileEntity> userProfileEntries;
+    @Getter
+    private List<DepositoryEntity> depositoryEntries;
+    @Getter
+    private List<TransactionEntity> transactionEntries;
 
     // toDo: refactor with Spring Test Containers - init data
     private RepositoryTestMock(@Autowired UserProfileRepository userProfileRepository,
@@ -26,6 +31,14 @@ public class RepositoryTestMock { // toDo temp class
                                @Autowired TransactionRepository transactionRepository,
                                @Autowired BookMetaRepository bookMetaRepository,
                                @Autowired BookRepository bookRepository) {
+        this.userProfileRepository = userProfileRepository;
+        this.depositoryRepository = depositoryRepository;
+        this.transactionRepository = transactionRepository;
+        this.bookMetaRepository = bookMetaRepository;
+        this.bookRepository = bookRepository;
+    }
+
+    public void resetAndInitializeDb() {
         transactionRepository.deleteAll();
         userProfileRepository.deleteAll();
         depositoryRepository.deleteAll();
@@ -68,19 +81,19 @@ public class RepositoryTestMock { // toDo temp class
 
         bookMetaEntity = bookMetaRepository.save(bookMetaEntity);
 
-        BookEntity khetagItmoBook = new BookEntity(null, bookMetaEntity, khetag, itmo);
+        BookEntity khetagItmoBook = new BookEntity(null, bookMetaEntity, khetag, itmo, Set.of());
         khetagItmoBook = bookRepository.save(khetagItmoBook);
 
-        BookEntity khetagMiptBook = new BookEntity(null, bookMetaEntity, khetag, mipt);
+        BookEntity khetagMiptBook = new BookEntity(null, bookMetaEntity, khetag, mipt, Set.of());
         khetagMiptBook = bookRepository.save(khetagMiptBook);
 
-        BookEntity ivanItmoBook = new BookEntity(null, bookMetaEntity, ivan, itmo);
+        BookEntity ivanItmoBook = new BookEntity(null, bookMetaEntity, ivan, itmo, Set.of());
         ivanItmoBook = bookRepository.save(ivanItmoBook);
 
-        BookEntity ivanMiptBook = new BookEntity(null, bookMetaEntity, ivan, mipt);
+        BookEntity ivanMiptBook = new BookEntity(null, bookMetaEntity, ivan, mipt, Set.of());
         ivanMiptBook = bookRepository.save(ivanMiptBook);
 
-        BookEntity defuserDefdepBook = new BookEntity(null, bookMetaEntity, defuser, defdep);
+        BookEntity defuserDefdepBook = new BookEntity(null, bookMetaEntity, defuser, defdep, Set.of());
         defuserDefdepBook = bookRepository.save(defuserDefdepBook);
 
         transactionEntries = List.of(

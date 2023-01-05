@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -21,10 +22,15 @@ public class TransactionsService extends AbstractService<TransactionEntity, Tran
         super(repository, TransactionMapper.INSTANCE);
     }
 
+    public UUID create(TransactionDto dto) {
+        // toDo create from dto
+        return null;
+    }
+
     public Flux<TransactionDto> getTransactions(UUID bookDepositId, UUID bookHunterId, long amount, SortType type) {
         Predicate<TransactionEntity> filter = t -> t.getUser().getId().equals(bookHunterId) && t.getDepository().getId().equals(bookDepositId);
-        Comparator<TransactionEntity> comparator = Comparator.comparing(TransactionEntity::getTimestamp,
-                type.equals(SortType.ASC) ? Comparator.naturalOrder() : Comparator.reverseOrder());
+        Comparator<TransactionEntity> comparator = Comparator.comparing(
+                TransactionEntity::getTimestamp, Comparator.<Timestamp>nullsLast(type.equals(SortType.ASC) ? Comparator.naturalOrder() : Comparator.reverseOrder()));
 
         return Flux.fromStream(repository.findAll().stream()
                         .filter(filter)

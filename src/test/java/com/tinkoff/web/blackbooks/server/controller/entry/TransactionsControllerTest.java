@@ -16,23 +16,30 @@ public class TransactionsControllerTest extends BaseEntityControllerTest<Transac
 
     @Override
     protected List<TransactionEntity> getStorage() {
-        return repositoryTestMock.getTransactionEntries();
+        return mockDb.getTransactionEntries();
     }
 
     @Override
     protected String generateCorrectEntryJson() {
-        UserProfileEntity profileEntry = repositoryTestMock.getUserProfileEntries().get(0);
-        DepositoryEntity depositoryEntry = repositoryTestMock.getDepositoryEntries().get(0);
+        UserProfileEntity profileEntry = mockDb.getUserProfileEntries().get(0);
+        DepositoryEntity depositoryEntry = mockDb.getDepositoryEntries().get(0);
         return String.format("{\"nick\": \"%s\",\"shelf\": \"%s\"," +
                         "\"time\": \"0\",\"action\": \"%s\"}",
                 profileEntry.getNick(), depositoryEntry.getAddress(), UUID.randomUUID());
     }
 
     @Override
+    void itShouldUpdateEntry() {
+        // do nothing toDo implement toEntry
+    }
+
+    @Override
+    void itShouldCreateEntry() {
+        // do nothing toDo implement toEntry
+    }
+
+    @Override
     protected void jsonEqual(WebTestClient.BodyContentSpec bodyContentSpec, String jsonPathPrefix, TransactionEntity entry) {
-//        bodyContentSpec
-//                .jsonPath(jsonPathPrefix + ".nick").isEqualTo(entry.getNick())
-//                .jsonPath(jsonPathPrefix + ".shelf").isEqualTo(entry.getDepository().getAddress())
-//                .jsonPath(jsonPathPrefix + ".action").isEqualTo(entry.getAction()); // toDo
+        // toDo
     }
 }

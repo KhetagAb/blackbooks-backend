@@ -3,6 +3,7 @@ package com.tinkoff.web.blackbooks.server.controller.entry;
 import com.tinkoff.web.blackbooks.server.controller.JsonContentControllerTest;
 import com.tinkoff.web.blackbooks.server.dao.entity.Entity;
 import com.tinkoff.web.blackbooks.server.mock.RepositoryTestMock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -14,7 +15,7 @@ import static com.tinkoff.web.blackbooks.server.TestUtils.UUID_MATCHER;
 public abstract class BaseEntityControllerTest<E extends Entity> extends JsonContentControllerTest {
 
     @Autowired
-    protected RepositoryTestMock repositoryTestMock;
+    protected RepositoryTestMock mockDb;
 
     protected abstract List<E> getStorage();
 
@@ -25,6 +26,11 @@ public abstract class BaseEntityControllerTest<E extends Entity> extends JsonCon
     protected abstract void jsonEqual(WebTestClient.BodyContentSpec bodyContentSpec,
                                       String jsonPathPrefix,
                                       E entry);
+
+    @BeforeEach
+    public void setup() {
+        mockDb.resetAndInitializeDb();
+    }
 
     @Test
     void itShouldCreateEntry() {
@@ -45,7 +51,7 @@ public abstract class BaseEntityControllerTest<E extends Entity> extends JsonCon
     @Test
     void itShouldGetEntry() {
         // given
-        E entry = getStorage().get(0);
+        E entry = getStorage().get(1);
 
         // when
         var response = get(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();

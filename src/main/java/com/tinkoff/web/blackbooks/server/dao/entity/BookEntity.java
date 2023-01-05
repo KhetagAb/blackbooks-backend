@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,6 +35,9 @@ public class BookEntity implements com.tinkoff.web.blackbooks.server.dao.entity.
     @ManyToOne
     @JoinColumn(name = "depository_id")
     private DepositoryEntity depository;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private Set<TransactionEntity> transactions;
 
     public UUID getId() {
         return id;

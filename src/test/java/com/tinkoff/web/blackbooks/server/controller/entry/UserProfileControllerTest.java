@@ -14,7 +14,7 @@ class UserProfileControllerTest extends BaseEntityControllerTest<UserProfileEnti
                 "{\"nick\": \"%s\",\"name\": \"%s\"," +
                         "\"age\": \"%s\",\"gender\": \"%s\",\"location\": \"%s\"}",
                 UUID.randomUUID(), UUID.randomUUID(),
-                0, UUID.randomUUID(), UUID.randomUUID());
+                0, UUID.randomUUID(), "0 0");
     }
 
     @Override
@@ -24,7 +24,7 @@ class UserProfileControllerTest extends BaseEntityControllerTest<UserProfileEnti
 
     @Override
     protected List<UserProfileEntity> getStorage() {
-        return repositoryTestMock.getUserProfileEntries();
+        return mockDb.getUserProfileEntries();
     }
 
     @Override

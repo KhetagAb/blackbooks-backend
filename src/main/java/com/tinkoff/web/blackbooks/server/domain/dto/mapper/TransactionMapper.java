@@ -11,12 +11,12 @@ public class TransactionMapper implements DtoMapper<TransactionEntity, Transacti
     public TransactionDto toDto(TransactionEntity entry) {
         return new TransactionDto(entry.getUser().getNick(),
                 entry.getDepository().getAddress(), // toDo - address?
-                entry.getTimestamp() == null ? 0 : entry.getTimestamp().toInstant().toEpochMilli(),
+                entry.getTimestamp() == null ? 0 : entry.getTimestamp().toInstant().toEpochMilli(), // toDo fix
                 entry.getType());
     }
 
     @Override
     public TransactionEntity toEntry(TransactionDto dto) { // toDO - implement
-        throw new IllegalStateException("not implemented");
+        return null;
     }
 }
