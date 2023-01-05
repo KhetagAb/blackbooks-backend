@@ -1,6 +1,6 @@
 package com.tinkoff.web.blackbooks.server.service;
 
-import com.tinkoff.web.blackbooks.server.RepositoryTestMock;
+import com.tinkoff.web.blackbooks.server.mock.RepositoryTestMock;
 import com.tinkoff.web.blackbooks.server.controller.util.SortType;
 import com.tinkoff.web.blackbooks.server.domain.dao.dto.TransactionDto;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.DepositoryEntry;

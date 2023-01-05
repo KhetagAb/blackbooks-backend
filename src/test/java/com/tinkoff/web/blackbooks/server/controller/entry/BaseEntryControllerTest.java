@@ -1,7 +1,7 @@
 package com.tinkoff.web.blackbooks.server.controller.entry;
 
-import com.tinkoff.web.blackbooks.server.RepositoryTestMock;
-import com.tinkoff.web.blackbooks.server.controller.BaseControllerTest;
+import com.tinkoff.web.blackbooks.server.mock.RepositoryTestMock;
+import com.tinkoff.web.blackbooks.server.controller.JsonContentControllerTest;
 import com.tinkoff.web.blackbooks.server.domain.dao.entry.Entry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.tinkoff.web.blackbooks.server.TestUtils.UUID_MATCHER;
 
-public abstract class BaseEntryControllerTest<E extends Entry> extends BaseControllerTest {
+public abstract class BaseEntryControllerTest<E extends Entry> extends JsonContentControllerTest {
 
     @Autowired
     protected RepositoryTestMock repositoryTestMock;
@@ -32,10 +32,10 @@ public abstract class BaseEntryControllerTest<E extends Entry> extends BaseContr
         String entry = generateCorrectEntryJson();
 
         // when
-        var response = postJson(getControllerPathPrefix() + "/create", entry).exchange();
+        var response = post(getControllerPathPrefix() + "/create", entry).exchange();
 
         // then
-        expectJson(response)
+        expect(response)
                 .expectStatus().isCreated()
                 .expectBody()
                 .jsonPath("$")
@@ -48,10 +48,10 @@ public abstract class BaseEntryControllerTest<E extends Entry> extends BaseContr
         E entry = getStorage().get(0);
 
         // when
-        var response = getJson(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
+        var response = get(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
 
         // then
-        jsonEqual(expectJson(response).expectBody(), "$", entry);
+        jsonEqual(expect(response).expectBody(), "$", entry);
     }
 
     @Test
@@ -60,10 +60,10 @@ public abstract class BaseEntryControllerTest<E extends Entry> extends BaseContr
         List<E> entities = getStorage();
 
         // when
-        var response = getJson(getControllerPathPrefix() + "/all").exchange();
+        var response = get(getControllerPathPrefix() + "/all").exchange();
 
         // then
-        var expectBody = expectJson(response).expectBody();
+        var expectBody = expect(response).expectBody();
         for (int i = 0; i < entities.size(); i++) {
             jsonEqual(expectBody, "$.[" + i + "]", entities.get(i));
         }
@@ -76,7 +76,7 @@ public abstract class BaseEntryControllerTest<E extends Entry> extends BaseContr
         String newUserProfile = generateCorrectEntryJson();
 
         // when
-        var response = putJson(newUserProfile,
+        var response = put(newUserProfile,
                 getControllerPathPrefix() + "/{id}",
                 entry.getId()).exchange();
 
@@ -90,7 +90,7 @@ public abstract class BaseEntryControllerTest<E extends Entry> extends BaseContr
         E entry = getStorage().get(0);
 
         // when
-        var response = deleteJson(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
+        var response = delete(getControllerPathPrefix() + "/{id}", entry.getId()).exchange();
 
         // then
         response.expectStatus().isOk();

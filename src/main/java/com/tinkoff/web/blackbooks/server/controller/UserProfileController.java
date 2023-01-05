@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/user", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "user")
-@RequiredArgsConstructor
 public class UserProfileController {
 
     // toDo no validation at the moment

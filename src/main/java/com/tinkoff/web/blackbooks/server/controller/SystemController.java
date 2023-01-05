@@ -1,6 +1,7 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +10,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/system", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "system", description = "system endpoint of the blackbooks application")
 public class SystemController {
 
     private final WebClient client;
-
-    private SystemController(WebClient client) {
-        this.client = client;
-    }
 
     @GetMapping(value = "liveness")
     public Mono<String> getLiveness() {
