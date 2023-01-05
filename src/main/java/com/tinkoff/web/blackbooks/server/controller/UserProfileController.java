@@ -1,9 +1,8 @@
 package com.tinkoff.web.blackbooks.server.controller;
 
-import com.tinkoff.web.blackbooks.server.domain.dao.dto.UserProfileDto;
+import com.tinkoff.web.blackbooks.server.domain.dto.UserProfileDto;
 import com.tinkoff.web.blackbooks.server.service.UserProfileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +12,16 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/user", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Tag(name = "user")
 public class UserProfileController {
 
     // toDo no validation at the moment
     private final UserProfileService userProfileService;
+
+    public UserProfileController(UserProfileService userProfileService) {
+        this.userProfileService = userProfileService;
+    }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
