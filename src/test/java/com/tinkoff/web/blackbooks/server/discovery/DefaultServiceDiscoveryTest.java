@@ -1,7 +1,7 @@
 package com.tinkoff.web.blackbooks.server.discovery;
 
 @Deprecated
-class DefaultServiceDiscoveryTest { // toDo integration testing with mocks
+class DefaultServiceDiscoveryTest { // toDo integration testing
 
 //    ServicesSettings settings = mock(ServicesSettings.class);
 //

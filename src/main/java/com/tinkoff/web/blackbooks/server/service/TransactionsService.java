@@ -12,7 +12,6 @@ import reactor.core.publisher.Flux;
 import java.util.Comparator;
 import java.util.UUID;
 import java.util.function.Predicate;
-import java.util.stream.StreamSupport;
 
 @Service
 public class TransactionsService extends AbstractService<TransactionEntity, TransactionDto> {
@@ -23,11 +22,11 @@ public class TransactionsService extends AbstractService<TransactionEntity, Tran
     }
 
     public Flux<TransactionDto> getTransactions(UUID bookDepositId, UUID bookHunterId, long amount, SortType type) {
-        Predicate<TransactionEntity> filter = t -> t.getUserId().equals(bookHunterId) && t.getDepositoryId().equals(bookDepositId);
+        Predicate<TransactionEntity> filter = t -> t.getUser().getId().equals(bookHunterId) && t.getDepository().getId().equals(bookDepositId);
         Comparator<TransactionEntity> comparator = Comparator.comparing(TransactionEntity::getTimestamp,
                 type.equals(SortType.ASC) ? Comparator.naturalOrder() : Comparator.reverseOrder());
 
-        return Flux.fromStream(StreamSupport.stream(repository.findAll().spliterator(), false)
+        return Flux.fromStream(repository.findAll().stream()
                         .filter(filter)
                         .sorted(comparator)
                         .limit(amount))

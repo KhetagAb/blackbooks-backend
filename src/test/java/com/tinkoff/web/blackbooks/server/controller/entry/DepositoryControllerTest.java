@@ -14,7 +14,7 @@ class DepositoryControllerTest extends BaseEntityControllerTest<DepositoryEntity
                 "{\"nick\": \"%s\",\"address\": \"%s\"," +
                         "\"description\": \"%s\",\"type\": \"%s\",\"location\": \"%s\"}",
                 UUID.randomUUID(), UUID.randomUUID(),
-                UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+                UUID.randomUUID(), UUID.randomUUID(), "0 0");
     }
 
     @Override

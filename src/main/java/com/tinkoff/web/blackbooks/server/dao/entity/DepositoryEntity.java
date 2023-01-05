@@ -1,16 +1,20 @@
 package com.tinkoff.web.blackbooks.server.dao.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "depository", schema = "public", catalog = "postgres")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepositoryEntity implements com.tinkoff.web.blackbooks.server.dao.entity.Entity {
@@ -38,11 +42,33 @@ public class DepositoryEntity implements com.tinkoff.web.blackbooks.server.dao.e
     @Column(name = "longitude")
     private double longitude;
 
+    @OneToMany(mappedBy = "depository", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<BookEntity> books;
+
+    @OneToMany(mappedBy = "depository", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
+    private Set<BookEntity> transactions;
+
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        DepositoryEntity that = (DepositoryEntity) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

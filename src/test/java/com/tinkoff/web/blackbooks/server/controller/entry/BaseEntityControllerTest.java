@@ -73,10 +73,10 @@ public abstract class BaseEntityControllerTest<E extends Entity> extends JsonCon
     void itShouldUpdateEntry() {
         // given
         E entry = getStorage().get(0);
-        String newUserProfile = generateCorrectEntryJson();
+        String json = generateCorrectEntryJson();
 
         // when
-        var response = put(newUserProfile,
+        var response = put(json,
                 getControllerPathPrefix() + "/{id}",
                 entry.getId()).exchange();
 

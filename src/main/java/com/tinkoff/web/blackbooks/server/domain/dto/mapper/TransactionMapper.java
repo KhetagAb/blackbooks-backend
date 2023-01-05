@@ -9,36 +9,14 @@ public class TransactionMapper implements DtoMapper<TransactionEntity, Transacti
 
     @Override
     public TransactionDto toDto(TransactionEntity entry) {
-        return null;
+        return new TransactionDto(entry.getUser().getNick(),
+                entry.getDepository().getAddress(), // toDo - address?
+                entry.getTimestamp() == null ? 0 : entry.getTimestamp().toInstant().toEpochMilli(),
+                entry.getType());
     }
 
     @Override
-    public TransactionEntity toEntry(TransactionDto dto) {
-        return null;
+    public TransactionEntity toEntry(TransactionDto dto) { // toDO - implement
+        throw new IllegalStateException("not implemented");
     }
-
-//    TransactionDto toDto(TransactionEntity car);
-//
-//    TransactionEntity toEntry(TransactionDto car);
-
-//    private final UserProfileService userProfileService;
-//    private final DepositoryService depositoryService;
-//
-//    public TransactionDto toDto(TransactionEntity transactionEntry) {
-//        return null; // todo
-////        return new TransactionDto(transactionEntry.getUser().getNick(),
-////                transactionEntry.getDepository().getAddress(),
-////                transactionEntry.getTime().getTime(),
-////                transactionEntry.getAction());
-//    }
-//
-//    @SneakyThrows
-//    public TransactionEntity toEntry(TransactionDto transactionDto) {
-//        return null; // todo
-//
-////        return new TransactionEntity(userProfileService.findByNick(transactionDto.nick()).get(),
-////                depositoryService.findByAddress(transactionDto.shelf()).get(),
-////                new Date(transactionDto.time()),
-////                transactionDto.action());
-//    }
 }
