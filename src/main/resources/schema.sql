@@ -67,18 +67,18 @@ ALTER TABLE
     "book_meta"
     ADD PRIMARY KEY ("id");
 
--- ALTER TABLE
---     "transaction"
---     ADD CONSTRAINT "transaction_userid_foreign" FOREIGN KEY ("user_id") REFERENCES "user_profile" ("id");
--- ALTER TABLE
---     "transaction"
---     ADD CONSTRAINT "transaction_depositoryid_foreign" FOREIGN KEY ("depository_id") REFERENCES "depository" ("id");
--- ALTER TABLE
---     "book"
---     ADD CONSTRAINT "book_userid_foreign" FOREIGN KEY ("user_id") REFERENCES "user_profile" ("id");
--- ALTER TABLE
---     "book"
---     ADD CONSTRAINT "book_depositoryid_foreign" FOREIGN KEY ("depository_id") REFERENCES "depository" ("id");
--- ALTER TABLE
---     "book"
---     ADD CONSTRAINT "book_bookmetaid_foreign" FOREIGN KEY ("book_meta_id") REFERENCES "book_meta" ("id");
+ALTER TABLE
+    "transaction"
+    ADD CONSTRAINT "transaction_userid_foreign" FOREIGN KEY ("user_id") REFERENCES "user_profile" ("id");
+ALTER TABLE
+    "transaction"
+    ADD CONSTRAINT "transaction_depositoryid_foreign" FOREIGN KEY ("depository_id") REFERENCES "depository" ("id");
+ALTER TABLE
+    "book"
+    ADD CONSTRAINT "book_userid_foreign" FOREIGN KEY ("user_id") REFERENCES "user_profile" ("id");
+ALTER TABLE
+    "book"
+    ADD CONSTRAINT "book_depositoryid_foreign" FOREIGN KEY ("depository_id") REFERENCES "depository" ("id");
+ALTER TABLE
+    "book"
+    ADD CONSTRAINT "book_bookmetaid_foreign" FOREIGN KEY ("book_meta_id") REFERENCES "book_meta" ("id");
