@@ -34,8 +34,12 @@ public class ServicesSettings {
 
         private final URL url;
 
-        public Service(String host, int port) throws MalformedURLException {
-            this.url = new URL("http://" +  host + ":" + port);
+        Service(String host, int port) throws MalformedURLException {
+            this.url = new URL("http://" + host + ":" + port);
+        }
+
+        public static Service of(String host, int port) throws MalformedURLException {
+            return new Service(host, port);
         }
     }
 }
